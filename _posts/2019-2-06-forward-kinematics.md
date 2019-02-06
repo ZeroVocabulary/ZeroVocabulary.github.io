@@ -23,6 +23,9 @@ This blog will be primarily on forward kinematics, but first I will explain the 
 
 The arm is a simple 3 axis toy arm built for this project from cheap servos (SG90) and Popsicle sticks. It was designed and built in a few hours. I basically just connected servos together. Two servos are held by tape although I may need to replace that with glue later for more rigidity. There is tape around the Popsicle sticks to stop them from splitting when screwed together.
 
+<div class="video-container"><iframe src="https://www.youtube.com/watch?v=KJEiu5JqJ3g" frameborder="0" allowfullscreen></iframe></div>
+
+
 The challenge in this project comes not from the inverse kinematics solving, but the calibration. The design is not rigid, resulting in the end moving around by a few millimeters in normal use. This was somewhat intentional; it will hopefully expose me to extra implementation challenges of inverse kinematics. [Calibration is much harder than the inverse kinematics on its own.](https://robotics.stackexchange.com/questions/16168/denavit-hartenberg-convention-in-practice)
 
 I realized later that I can only give the servos the angles I want them to move to, and am unable to sense the current angle without adding a sensor or modifying the servo. So while I can order the servo to try to move to a position, I will probably not be able to sense the arms location without some sort of vision + depth sensing, because any physical contact with the very weak toy arm will move it, and I can not sense that movement. This makes calibration much harder, so I might just stop with inverse kinematics if I can not get it working, and maybe do calibration in another project with a better arm.

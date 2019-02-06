@@ -23,7 +23,8 @@ This blog will be primarily on forward kinematics, but first I will explain the 
 
 The arm is a simple 3 axis toy arm built for this project from cheap servos (SG90) and Popsicle sticks. It was designed and built in a few hours. I basically just connected servos together. Two servos are held by tape although I may need to replace that with glue later for more rigidity. There is tape around the Popsicle sticks to stop them from splitting when screwed together.
 
-<div class="video-container"><iframe width="560" height="315" src="https://www.youtube.com/embed/KJEiu5JqJ3g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KJEiu5JqJ3g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 The challenge in this project comes not from the inverse kinematics solving, but the calibration. The design is not rigid, resulting in the end moving around by a few millimeters in normal use. This was somewhat intentional; it will hopefully expose me to extra implementation challenges of inverse kinematics. [Calibration is much harder than the inverse kinematics on its own.](https://robotics.stackexchange.com/questions/16168/denavit-hartenberg-convention-in-practice)
 

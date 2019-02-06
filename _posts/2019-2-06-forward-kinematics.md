@@ -33,16 +33,16 @@ The goal with forward kinematics is to find the location/orientation of the end 
 
 For forward kinematics, we have vectors in a position/orientation relative to the end effector, and we want the vectors in a position/orientation relative to the base of the robot. We need to get a transformation matrix that brings us from the end effector to the previous link, Ln to L(n-1).
 
-![Figure](assets\images\ForwardKinematics\FwkLinks.png)
+![Figure](/assets/images/ForwardKinematics/FwkLinks.png)
 
 Two prerequisites were important for me to understand. First we need to understand rotation matrices. Here is an example of a 2d rotation matrix that rotates a given vector counterclockwise by θ around the origin. Click the link in the caption to see more of them, such as 3D ones. Its mainly important to be able to recognize the form for when it appears in the matrices later.
 
-![Figure](assets\images\ForwardKinematics\r0.gif)
+![Figure](/assets/images/ForwardKinematics/r0.gif)
 [Source](http://mathworld.wolfram.com/RotationMatrix.html)
 
 The second prerequisite is how to do addition (translation) via matrix multiplication. This is actually very simple, you just add an extra row and column. What is in the extra column is added on multiplication. Look at the blue highlighted numbers to understand. A 3x3 matrix and a 3x1 vector is extended to 4x4 matrix and a 4x1 vector. By using the extra columns, we can add via matrix multiplication.
 
-![Figure](assets\images\ForwardKinematics\MatrixTranslation.png)
+![Figure](/assets/images/ForwardKinematics/MatrixTranslation.png)
 
 Those are the requirements done. For the forward kinematics, I used Denavit Hartenberg (DH) convention since it seems like the most common one. It uses 4 parameters to change frame, θ, r, α, and d. This video is much better at explaining it than any explanation with words.
 [https://www.youtube.com/watch?v=rA9tm0gTln8](https://www.youtube.com/watch?v=rA9tm0gTln8)
@@ -51,18 +51,18 @@ Varying θ or d allows us to rotate or translate. If we want to do multiple rota
 
 This is a screenshot from Wikipedia of the matrices for the transformation with some highlights.
 
-![Figure](assets\images\ForwardKinematics\ScreenshotWikipedia.png)
+![Figure](/assets/images/ForwardKinematics/ScreenshotWikipedia.png)
 
 With our prerequisite knowledge of how to do/recognize rotation and translation and what the DH parameters are, these formulas make sense, since we can easily see the rotation parts (sets of sine and cosine highlighted in green) and the translation parts (last column of the matrices highlighted in orange). The final combined matrix can be multiplied with a vector in the current frame to get the same vector in relation to the previous frame (the previous link), allowing us to move backwards from the end effector to the base of the arm.
 
 ## Matlab
 I made a 3 axis arm in Matlab (different from the real arm I made). Here are the parameters.
 
-![Figure](assets\images\ForwardKinematics\ArmParameters.png)
+![Figure](/assets/images/ForwardKinematics/ArmParameters.png)
 
 With these parameters and some Matlab code that took a surprisingly long time to get working, I got a simulation. All three joints have their θ increasing from 0 to 360:
 
-![Figure](assets\images\ForwardKinematics\simulation.gif)
+![Figure](/assets/images/ForwardKinematics/simulation.gif)
 
 The points needed to draw the lines were found with the forward kinematics as described before. I looped through an array of link parameters, built the full transformation matrix for each one, and multiplied them together. 
 

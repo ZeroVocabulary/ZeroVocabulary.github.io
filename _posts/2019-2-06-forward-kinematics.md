@@ -27,7 +27,7 @@ The arm is a simple 3 axis toy arm built for this project from cheap servos (SG9
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KJEiu5JqJ3g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-The challenge in this project comes not from the inverse kinematics solving, but the calibration. The design is not rigid, resulting in the end moving around by a few millimeters in normal use. This was somewhat intentional; it will hopefully expose me to extra implementation challenges of inverse kinematics. [Calibration is much harder than the inverse kinematics on its own.](https://robotics.stackexchange.com/questions/16168/denavit-hartenberg-convention-in-practice)
+The challenge in this project comes not just from the inverse kinematics solving, but the calibration. The design is not rigid, resulting in the end moving around by a few millimeters in normal use. This was somewhat intentional; it will hopefully expose me to extra implementation challenges of inverse kinematics. [Calibration is much harder than the inverse kinematics on its own.](https://robotics.stackexchange.com/questions/16168/denavit-hartenberg-convention-in-practice)
 
 I realized later that I can only give the servos the angles I want them to move to, and am unable to sense the current angle without adding a sensor or modifying the servo. So while I can order the servo to try to move to a position, I will probably not be able to sense the arms location without some sort of vision + depth sensing, because any physical contact with the very weak toy arm will move it, and I can not sense that movement. This makes calibration much harder, so I might just stop with inverse kinematics if I can not get it working, and maybe do calibration in another project with a better arm.
 
@@ -68,13 +68,36 @@ With these parameters and some Matlab code that took a surprisingly long time to
 
 ![Figure](/assets/images/ForwardKinematics/simulation.gif)
 
-The points needed to draw the lines were found with the forward kinematics as described before. I looped through an array of link parameters, built the full transformation matrix for each one, and multiplied them together. 
+The points needed to draw the lines were found with the forward kinematics as described before. In a function, I looped backwards through an array of link parameters, created the full transformation matrix for each one, and multiplied them together. 
+```matlab
+        % forward kinematics (get the transformation T)
+        function [T] = fwk(P)
+                T = eye(4);
+                for i1=size(P,1):-1:1
+                    theta = P(i1,1);
+                    alpha = P(i1,2);
+                    r = P(i1,3);
+                    d = P(i1,4);
+                    A = [
+                        cosd(theta),-sind(theta)*cosd(alpha),sind(theta)*sind(alpha),r*cosd(theta);
+                        sind(theta),cosd(theta)*cosd(alpha),-cosd(theta)*sind(alpha),r*sind(theta);
+                        0,sind(alpha),cosd(alpha),d;
+                        0,0,0,1
+                        ];
+                    % we need to transform link by link from end effector to the base
+                    % So add it on
+                    T = A*T;
+                end
+        end
+```
 
 ## Conclusion
 
 That is all for this blog. Future blogs in this project will involve inverse kinematics and if possible calibration.
 
-The code for the Matlab simulation is [here](https://github.com/ZeroVocabulary/InverseKinematicsStuff/blob/master/fwk3.m). I did not put much cleaning or commenting into it since it will probably be abandoned after I remake it in Python.
+[The Kinematics.fwk function is in this file.](https://github.com/ZeroVocabulary/InverseKinematicsStuff/blob/master/fwk3.m)
+
+[Here is the code for the animation.](https://github.com/ZeroVocabulary/InverseKinematicsStuff/blob/master/fwk5.m)
 
 Here are all the links I found useful for learning:
 

@@ -1,7 +1,7 @@
 # Site settings
-title_left    : "Ahmed Amin's Blog"
+title_left    : "Ahmed Amin's Projects"
 title_right   : "" # default: ""
-description   : "Ahmed Amin's Blog."
+description   : "Ahmed Amin's Projects."
 keywords      : ""
 url           : https://zerovocabulary.github.io # site url
 baseurl       : "" # apply repo name like "/myproject" if used under gh-pages branch, else (under master branch) just leave empty/blank

@@ -42,6 +42,7 @@ For forward kinematics, we have vectors in a position/orientation relative to th
 Two prerequisites were important for me to understand. First we need to understand rotation matrices. Here is an example of a 2d rotation matrix that rotates a given vector counterclockwise by θ around the origin. Click the link in the caption to see more of them, such as 3D ones. Its mainly important to be able to recognize the form for when it appears in the matrices later.
 
 ![Figure](/assets/images/ForwardKinematics/r0.gif)
+
 [Source](http://mathworld.wolfram.com/RotationMatrix.html)
 
 The second prerequisite is how to do addition (translation) via matrix multiplication. This is actually very simple, you just add an extra row and column. What is in the extra column is added on multiplication. Look at the blue highlighted numbers to understand. A 3x3 matrix and a 3x1 vector is extended to 4x4 matrix and a 4x1 vector. By using the extra columns, we can add via matrix multiplication.
@@ -64,7 +65,7 @@ I made a 3 axis arm in Matlab (different from the real arm I made). Here are the
 
 ![Figure](/assets/images/ForwardKinematics/ArmParameters.png)
 
-With these parameters and some Matlab code that took a surprisingly long time to get working, I got a simulation. All three joints have their θ increasing from 0 to 360:
+With these parameters and some Matlab code that took a surprisingly long time to get working, I got a simple simulation. All three joints have their θ increasing from 0 to 360:
 
 ![Figure](/assets/images/ForwardKinematics/simulation.gif)
 
@@ -97,7 +98,7 @@ That is all for this blog. Future blogs in this project will involve inverse kin
 
 [The Kinematics.fwk function is in this file.](https://github.com/ZeroVocabulary/InverseKinematicsStuff/blob/master/fwk3.m)
 
-[Here is the code for the animation.](https://github.com/ZeroVocabulary/InverseKinematicsStuff/blob/master/fwk5.m)
+[Here is the code for the simulation.](https://github.com/ZeroVocabulary/InverseKinematicsStuff/blob/master/fwk5.m)
 
 Here are all the links I found useful for learning:
 

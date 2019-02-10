@@ -44,7 +44,7 @@ This will get you closer and closer to your target position with every iteration
 
 I might not have explained it too well, but in reality its quite simple. It only took me two hours to implement this, and the results are OK.
 
-![Figure](/assets/images/ForwardKinematics/simulation.webp)
+![Figure](/assets/images/ForwardKinematics/simulation.mp4)
 
 [The Matlab code for the inverse kinematics is here](https://github.com/ZeroVocabulary/InverseKinematicsStuff/blob/master/invk1.m)
 

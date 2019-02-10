@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Learning Forward Kinematics"
+title: "Forward Kinematics (Toy Robot Arm pt. 1)"
 comments: false
 description: "Toy robot arm project"
 keywords: "Forward, Kinematics"

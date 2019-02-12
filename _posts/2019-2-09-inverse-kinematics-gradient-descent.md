@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Inverse Kinematics - Gradient Descent (Toy Robot Arm pt. 2)"
+title: "Inverse Kinematics - Gradient Descent (Robot Arm pt. 2)"
 comments: false
 description: "Toy robot arm project"
 keywords: "Inverse, Kinematics, Gradient, Descent"
@@ -14,7 +14,7 @@ In the previous blog, I did forward kinematics, and this week, I worked on
 * Code cleanup
 * Setting up a system to control the Arduino via Matlab instead of python
 
-Forward kinematics implementation somehow took 2 weeks (20-30 hours). This inverse kinematics implementation took 2 hours. It’s not that good, but it was VERY easy to implement.
+This inverse kinematics implementation took 2 hours. It’s not that good, but it was VERY easy to implement.
 
 The goal with inverse kinematics is to take the desired location/orientation of the end effector as input and find the joint angles + displacements needed to get to this location. This is more complicated than forward kinematics due to the possibility of multiple solutions or no solutions. An example of multiple solutions would be an arm with extra degrees of freedom being able to get to the same orientation in multiple different ways. Some examples of no solutions would be a position that is far away from the arm and therefore out of reach, or a position that the arm can not get to without colliding with itself.
 
@@ -58,12 +58,12 @@ The other difference is the usage of the Kinematics.simulateTravel function to l
 
 I thought inverse kinematics would be much harder to get working, but now I realize that a simple implementation is not hard. What is actually hard is dealing with multiple or no solutions, limited ranges, local minimums, etc. So inverse kinematics requires a lot of messing around with different methods and tuning. I am limited by my math knowledge, but I want to try more things. Two ideas I have now are Jacobian and neural networks.
 
-Using Jacobian is better than gradient descent.
+Using Jacobian is more direct than gradient descent.
 
-Neural networks will be able to learn how to deal with my specific arms. They have the ability to store information in their nodes via training. Normally this can be considered bad (overfitting) but it is useful here for taking into account details that are unique to each arm, such as limited angle ranges (ex. 0–180) and collision between the arm and itself.
+Neural networks will be able to learn how to deal with specific arms. They have the ability to store information in their nodes via training. It is useful here for taking into account details that are unique to each arm, such as limited angle ranges (ex. 0–180) and collision between the arm and itself.
 
 I can also improve on the gradient descent method.
 
 I originally wanted to use the arm to learn inverse kinematics, and control it via python. However, after using Matlab, I found that it was very easy to simulate arms in Matlab. So I will probably forget about dealing with the arm until a long time later, or altogether. The calibration challenges would be easier on a better arm anyway (one with encoders), so I could just delay that until I have access to a better arm. I could also just use a simulated arm, randomly change the values, and use that instead of a real arm. This would be much faster for generating datasets as well.
 
-I also found out that I can control the arduino much more easily in Matlab, without needing to code the arduino at all. This combined with my code already being in Matlab made me choose to stop using python, at least for now (I may come back to it for Tensorflow). If I continue working on the physical arm, it will be through Matlab.
+I also found out that I can control the arduino much more easily in Matlab via the arduino library, without needing to code the arduino at all. This combined with my code already being in Matlab made me choose to stop using Python, although I may use it in the future for Tensorflow. If I continue working on the physical arm, it will be through Matlab.

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Forward Kinematics (Toy Robot Arm pt. 1)"
+title: "Forward Kinematics (Robot Arm pt. 1)"
 comments: false
 description: "Toy robot arm project"
 keywords: "Forward, Kinematics"
@@ -8,28 +8,23 @@ keywords: "Forward, Kinematics"
 
 ## Intro
 
-The goal with this project is to learn inverse kinematics via a homemade toy robot arm. The end goal is a robot arm that can move to coordinates and draw a shape on a paper with a marker. There are some key steps here:
+The goal with this project is to learn to control a robot arm. I will be primarily focused on
+1. Forward Kinematics
+2. Inverse Kinematics
+3. Calibration
 
-1. Build the arm
-2. Get forward kinematics working for the arm
-3. Get inverse kinematics working for the arm
-4. Somehow calibrate.
-
-This blog will be primarily on forward kinematics, but first I will explain the simple arm I built.
+This blog will be on forward kinematics.
 
 <div class="divider"></div>
 
 ## The Arm
 
-The arm is a simple 3 axis toy arm built for this project from cheap servos (SG90) and Popsicle sticks. It was designed and built in a few hours. I basically just connected servos together. Two servos are held by tape although I may need to replace that with glue later for more rigidity. There is tape around the Popsicle sticks to stop them from splitting when screwed together.
+I made a simple 3 axis arm in a few hours out of toy servos and popsicle sticks.
 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KJEiu5JqJ3g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
-The challenge in this project comes not just from the inverse kinematics solving, but the calibration. The design is not rigid, resulting in the end moving around by a few millimeters in normal use. This was somewhat intentional; it will hopefully expose me to extra implementation challenges of inverse kinematics. [Calibration is much harder than the inverse kinematics on its own.](https://robotics.stackexchange.com/questions/16168/denavit-hartenberg-convention-in-practice)
-
-I realized later that I can only give the servos the angles I want them to move to, and am unable to sense the current angle without adding a sensor or modifying the servo. So while I can order the servo to try to move to a position, I will probably not be able to sense the arms location without some sort of vision + depth sensing, because any physical contact with the very weak toy arm will move it, and I can not sense that movement. This makes calibration much harder, so I might just stop with inverse kinematics if I can not get it working, and maybe do calibration in another project with a better arm.
+I realized later that I can only give the servos the angles I want them to move to, and am unable to sense the current angle without adding a sensor or modifying the servo. So while I can order the servo to try to move to a position, I will probably not be able to sense the arm's location without some sort of vision + depth sensing, because any physical contact with the very weak toy arm will move it, and I can not sense that movement. This makes calibration much harder, so I will probably end up not using this arm for calibration experiments. I might also just replace the arm entirely with a better arm.
 
 ## Forward Kinematics Explained
 
@@ -49,10 +44,10 @@ The second prerequisite is how to do addition (translation) via matrix multiplic
 
 ![Figure](/assets/images/ForwardKinematics/MatrixTranslation.png)
 
-Those are the requirements done. For the forward kinematics, I used Denavit Hartenberg (DH) convention since it seems like the most common one. It uses 4 parameters to change frame, θ, r, α, and d. This video is much better at explaining it than any explanation with words.
+Those are the requirements done. For the forward kinematics, I used Denavit Hartenberg (DH) convention since it seems like the most common convention. It uses 4 parameters to change frame, θ, r, α, and d. This video is much better at explaining it than any explanation with words or pictures.
 [https://www.youtube.com/watch?v=rA9tm0gTln8](https://www.youtube.com/watch?v=rA9tm0gTln8)
 
-Varying θ or d allows us to rotate or translate. If we want to do multiple rotations or translations in a joint, we can pretend there are multiple joints in the same location with zero length links connecting them.
+Varying θ or d allows us to rotate or translate. If we want to do multiple rotations or translations in a joint, we can use multiple joints in the same location with zero length links connecting them.
 
 This is a screenshot from Wikipedia of the matrices for the transformation with some highlights.
 

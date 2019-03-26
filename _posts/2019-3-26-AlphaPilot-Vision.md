@@ -1,26 +1,15 @@
 ---
 layout: post
-title: "AlphaPilot - Object Detection using CNNs and RetinaNet (AlphaPilot pt. 1)"
+title: "Object Detection using CNNs and RetinaNet (AlphaPilot pt. 1)"
 comments: false
 description: "AlphaPilot"
 keywords: "AlphaPilot, CNN, RetinaNet"
 ---
 
-## Intro
-
 Over spring break, I joined a team to try for AlphaPilot, an autonomous drone racing competition. There are 3 tests for this. The first test is a video talking about the team and why we are competing, the second test is a vision challenge where you need to identify gates with vision, and the third test is a autonomous drone control challenge. The third test is not due yet, but the 2nd test’s due date is passed. This is the primary test I worked on. Here are some examples of the images in the dataset.
 
-<div class="row">
-  <div class="column">
-    <img src="/assets/images/AlphaPilotCNN/ex1.png" alt="Example 1" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="/assets/images/AlphaPilotCNN/ex2.png" alt="Example 2" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="/assets/images/AlphaPilotCNN/ex3.png" alt="Example 3" style="width:100%">
-  </div>
-</div>
+![Figure](/assets/images/AlphaPilotCNN/examples.png)
+
 
 We needed to identify the locations of the corners of the gate.
 
@@ -47,12 +36,13 @@ Transfer learning is when you take a neural network that is pretrained on anothe
 Although my network was terribly designed (I just guessed at it with little prior knowledge/experience on what works), I think the real reason why it had huge loss and results outside of the image’s region was due to it being trained from random weights, without transfer learning. Without transfer learning, the network is starting from a completely random location that is likely to be very far away from the minimum. With transfer learning, the network will already be 90% trained, and close to the minimum.
 
 Here are two advantages of transfer learning that I know of right now:
+
 1. The learned features are useful for other datasets. For example, an edge detection filter found on one dataset is general enough to be useful on other datasets. Because of this, the minimums of the network for different datasets are likely to be close together, lowering learning time.
 2. Transfer learning lowers the chance of overfitting and lowers the amount of data needed. You can train a network on a really large dataset, such as a public one with millions of images, and then train it on your smaller dataset. This will work because it is already close to the minimum as explained before.
 
 These two advantages were essential for our situation. For advantage 1, we had one GPU, and training the network from random weights could have taken weeks.
 
-For advantage 2, we only had 9000 images and a single object. Without transfer learning, there was the potential for overfitting. With transfer learning, we could take a model that was trained on a massive dataset, which will be close to the right weights, and then train the rest of the way to the minimum loss with the 9000 images.
+For advantage 2, we only had 9000 images and a single object. Its a decent amount of images but it is not millions of images. Without transfer learning, there was the potential for overfitting. With transfer learning, we could take a model that was trained on a massive dataset, which will be close to the right weights, and then train the rest of the way to the minimum loss with the 9000 images.
 
 So I had to look for a trained model to use, and abandon the original model. I am still glad I tried to make my own, because I learned about convolution layers, dropout, etc. I also realized that the systems used for object detection were much more complex than I thought. Neural networks are not as good at detecting position within an image without modification, so various strategies have to be used to give the neural networks parts of an image at a time (YOLO, R-CNN, Fast R-CNN, Faster R-CNN, etc.). 
 

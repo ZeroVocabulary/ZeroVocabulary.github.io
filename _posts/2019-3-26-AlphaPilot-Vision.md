@@ -18,6 +18,8 @@ We needed to identify the locations of the corners of the gate.
 
 They gave us around 9000 images for training, with the corner locations as labels. Their labels also had some errors, which was not intentional since they apparently corrected the errors later.
 
+## Our First Attempt
+
 Our first attempt was using deep learning and convolutional neural networks. This was my first time ever using convolutional neural networks or deep networks (I have rarely ever gone above ~20 layers before this).
 
 I first tried to create my own model, which didn’t work too well to say the least. I copied a simple set of layers from a random tutorial and changed a few things.
@@ -30,6 +32,8 @@ I made many modifications to this model (adding and removing layers, changing ba
 ![Figure](/assets/images/AlphaPilotCNN/FailedDetection.png)
 
 If you are wondering what is going on here, the neural network was predicting coordinates that were nowhere near correct, and were in fact entirely outside of the image. This led to one of my biggest lessons from this competition so far: Always transfer learn when possible.
+
+## Transfer Learning
 
 Transfer learning is when you take a neural network that is pretrained on another dataset, and start training it on your dataset from its current weights, as opposed to training it entirely from the beginning (random weights) on your dataset.
 
@@ -46,6 +50,8 @@ For advantage 2, we only had 9000 images and a single object. Its a decent amoun
 
 So I had to look for a trained model to use, and abandon the original model. I am still glad I tried to make my own, because I learned about convolution layers, dropout, etc. I also realized that the systems used for object detection were much more complex than I thought. Neural networks are not as good at detecting position within an image without modification, so various strategies have to be used to give the neural networks parts of an image at a time (YOLO, R-CNN, Fast R-CNN, Faster R-CNN, etc.). 
 
+## Implementing RetinaNet
+
 After struggling for many hours to get tensorflow-gpu working, we tried using a Docker image instead, and it worked instantly. In the process, we learned how to use Docker, which is great since it seems extremely useful and I personally hate dealing with installation issues, which Docker gets right past.
 
 We ended up trying a RetinaNet model from [this repository](https://github.com/fizyr/keras-retinanet). We easily set up our dataset up to work with it by following the instructions, and after a small amount of training, we got this:
@@ -53,6 +59,8 @@ We ended up trying a RetinaNet model from [this repository](https://github.com/f
 ![Figure](/assets/images/AlphaPilotCNN/results.png)
 
 The network outputs two corners of a box, and so we drew a line between the predicted corners to visualize it. The other two corners are not accurate because this method has the same problem as before: we need all 4 corners, not a rectangle with vertical and horizontal sides. We trained it for much longer (probably around 10–20 hours) …and then deleted it by accident since we were still learning to use docker. Oh well. We decided to think up solutions for the 4 corners problem before trying to train again.
+
+## Abandoning CNNs and Switching To OpenCV
 
 We considered rotating the image and checking the corners again, adding the other two corners as a second object, and other things but ended not trying any of these things because we moved to using purely OpenCV. The reasons for abandoning neural networks were
 

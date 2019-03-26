@@ -6,6 +6,8 @@ description: "AlphaPilot"
 keywords: "AlphaPilot, CNN, RetinaNet"
 ---
 
+## Intro
+
 Over spring break, I joined a team to try for AlphaPilot, an autonomous drone racing competition. There are 3 tests for this. The first test is a video talking about the team and why we are competing, the second test is a vision challenge where you need to identify gates with vision, and the third test is a autonomous drone control challenge. The third test is not due yet, but the 2nd test’s due date is passed. This is the primary test I worked on. Here are some examples of the images in the dataset.
 
 ![Figure](/assets/images/AlphaPilotCNN/examples.png)
@@ -50,7 +52,7 @@ For advantage 2, we only had 9000 images and a single object. Its a decent amoun
 
 So I had to look for a trained model to use, and abandon the original model. I am still glad I tried to make my own, because I learned about convolution layers, dropout, etc. I also realized that the systems used for object detection were much more complex than I thought. Neural networks are not as good at detecting position within an image without modification, so various strategies have to be used to give the neural networks parts of an image at a time (YOLO, R-CNN, Fast R-CNN, Faster R-CNN, etc.). 
 
-## Implementing RetinaNet
+## Implementing RetinaNet, Learning Docker
 
 After struggling for many hours to get tensorflow-gpu working, we tried using a Docker image instead, and it worked instantly. In the process, we learned how to use Docker, which is great since it seems extremely useful and I personally hate dealing with installation issues, which Docker gets right past.
 
@@ -71,4 +73,4 @@ We considered rotating the image and checking the corners again, adding the othe
 
 So we went with OpenCV
 
-Update: Since the qualifications are done, I will probably make a post about our OpenCV method, or add it to this one. We did not complete test 3 due to lack of time. Spring Break ended for me and none of the team had time to work on it either due to school, jobs, and travel.
+Update: Since the qualifications are done, I will probably eventually make a post about our OpenCV method, or add it to this one. We did not complete test 3 due to lack of time. Spring Break ended for me, and everyone else on the team was busy due to school, jobs, and travel.
